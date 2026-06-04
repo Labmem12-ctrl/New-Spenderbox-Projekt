@@ -279,6 +279,28 @@
             </form>
         </div>
 
+        <div class="card" style="margin-bottom: 28px;">
+            <h2>🚀 Manuelle Test-Ausgabe</h2>
+            <p style="margin-bottom: 16px; color: #666; font-size: 14px;">
+                Hier kannst du die Servomotoren direkt zu Testzwecken ansteuern. Der reguläre Lagerbestand wird hierbei <strong>nicht</strong> reduziert.
+            </p>
+            <div style="display: flex; gap: 16px;">
+                <form action="/admin/test_ausgabe" method="POST" style="flex: 1;">
+                    <input type="hidden" name="produkt" value="binde">
+                    <button class="btn-speichern" type="submit" style="background: linear-gradient(135deg, #2196F3, #1E88E5); box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3); width: 100%; margin: 0;">
+                        💙 Binde testen
+                    </button>
+                </form>
+                
+                <form action="/admin/ausgeben" method="POST" style="flex: 1;">
+                    <input type="hidden" name="produkt" value="desinfektion">
+                    <button class="btn-speichern" type="submit" style="background: linear-gradient(135deg, #009688, #00897B); box-shadow: 0 4px 12px rgba(0, 150, 136, 0.3); width: 100%; margin: 0;">
+                        🧴 Desinfektion testen
+                    </button>
+                </form>
+            </div>
+        </div>
+
         <!-- Protokoll -->
         <div class="card">
             <h2>📋 Letzte Ausgaben</h2>
