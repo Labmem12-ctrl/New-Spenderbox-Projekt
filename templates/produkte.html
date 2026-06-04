@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <title>{{ t.produkte_titel }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 20px 60px rgba(233, 30, 140, 0.15);
+            text-align: center;
+        }
+
+        .logo {
+            overflow: hidden;
+            height: 155px;
+            margin-bottom: 0px;
+        }
+
+        .logo img {
+            width: 280px;
+            max-width: 100%;
+            display: block;
+            margin: -22px auto 0;
+        }
+
+        h1 {
+            color: #c2185b;
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .user-info {
+            display: inline-block;
+            background: #fff0f5;
+            color: #e91e8c;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 36px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .product-form {
+            flex: 1;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 22px 16px;
+            font-family: 'Nunito', Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            box-shadow: 0 6px 20px rgba(233, 30, 140, 0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+            line-height: 1.4;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(233, 30, 140, 0.45);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn .btn-emoji {
+            display: block;
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .logout {
+            display: inline-block;
+            margin-top: 32px;
+            font-size: 13px;
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .logout:hover {
+            color: #c2185b;
+        }
+
+        .lang-switch {
+            text-align: right;
+            margin-bottom: 8px;
+        }
+        .lang-switch a {
+            font-size: 13px;
+            color: #e91e8c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .lang-switch a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="lang-switch">
+            <a href="/sprache/{{ t.lang_ziel }}">{{ t.lang_btn }}</a>
+        </div>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="YoBo Logo">
+        </div>
+        <h1>{{ t.produkte_heading }}</h1>
+        <span class="user-info">📧 {{ email }}</span>
+
+        <div class="buttons">
+            <form class="product-form" action="/dispensiere" method="POST">
+                <input type="hidden" name="produkt" value="binde">
+                <button class="btn" type="submit">
+                    <span class="btn-emoji">💙</span>
+                    {{ t.produkte_binde }}
+                </button>
+            </form>
+
+            <form class="product-form" action="/dispensiere" method="POST">
+                <input type="hidden" name="produkt" value="desinfektion">
+                <button class="btn" type="submit">
+                    <span class="btn-emoji">🧴</span>
+                    {{ t.produkte_desinfektion }}
+                </button>
+            </form>
+        </div>
+
+        <a class="logout" href="/logout">{{ t.produkte_logout }}</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <title>{{ t.gesperrt_titel }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Nunito', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(233, 30, 140, 0.15);
+            text-align: center;
+        }
+
+        .logo {
+            overflow: hidden;
+            height: 155px;
+            margin-bottom: 0px;
+        }
+
+        .logo img {
+            width: 280px;
+            max-width: 100%;
+            display: block;
+            margin: -22px auto 0;
+        }
+
+        .icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            animation: pop 0.4s ease-out;
+        }
+
+        @keyframes pop {
+            0%   { transform: scale(0.5); opacity: 0; }
+            80%  { transform: scale(1.1); }
+            100% { transform: scale(1);   opacity: 1; }
+        }
+
+        h1 {
+            color: #c2185b;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .message {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            display: inline-flex;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .time-block {
+            background: #fff0f5;
+            border-radius: 12px;
+            padding: 12px 20px;
+            min-width: 72px;
+        }
+
+        .time-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #e91e8c;
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 11px;
+            color: #bbb;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 28px;
+            font-family: 'Nunito', Arial, sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 12px;
+            color: white;
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            box-shadow: 0 6px 20px rgba(233, 30, 140, 0.35);
+            text-decoration: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(233, 30, 140, 0.45);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="YoBo Logo">
+        </div>
+        <div class="icon">⏳</div>
+        <h1>{{ t.gesperrt_heading }}</h1>
+        <p class="message">{{ t.gesperrt_msg | safe }}</p>
+
+        <div class="timer">
+            <div class="time-block">
+                <div class="time-value" id="stunden">{{ stunden }}</div>
+                <div class="time-label">{{ t.gesperrt_stunden }}</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="minuten">{{ minuten }}</div>
+                <div class="time-label">{{ t.gesperrt_minuten }}</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="sekunden">00</div>
+                <div class="time-label">{{ t.gesperrt_sekunden }}</div>
+            </div>
+        </div>
+
+        <a class="btn" href="/produkte">{{ t.gesperrt_btn }}</a>
+    </div>
+
+    <!-- Restzeit versteckt im HTML gespeichert, damit JavaScript sie lesen kann -->
+    <span id="restzeit" data-sekunden="{{ sekunden }}" style="display:none;"></span>
+
+    <script>
+        let gesamt = parseInt(document.getElementById("restzeit").dataset.sekunden);
+
+        function aktualisieren() {
+            if (gesamt <= 0) {
+                // Automatisch weiterleiten wenn Zeit abgelaufen
+                window.location.href = "/produkte";
+                return;
+            }
+
+            const h = Math.floor(gesamt / 3600);
+            const m = Math.floor((gesamt % 3600) / 60);
+            const s = gesamt % 60;
+
+            document.getElementById("stunden").textContent  = String(h).padStart(2, "0");
+            document.getElementById("minuten").textContent  = String(m).padStart(2, "0");
+            document.getElementById("sekunden").textContent = String(s).padStart(2, "0");
+
+            gesamt--;
+        }
+
+        aktualisieren();
+        setInterval(aktualisieren, 1000);
+    </script>
+</body>
+</html>

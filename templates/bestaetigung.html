@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <title>{{ t.best_titel }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(233, 30, 140, 0.15);
+            text-align: center;
+        }
+
+        .logo {
+            overflow: hidden;
+            height: 155px;
+            margin-bottom: 0px;
+        }
+
+        .logo img {
+            width: 280px;
+            max-width: 100%;
+            display: block;
+            margin: -22px auto 0;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            animation: pop 0.4s ease-out;
+        }
+
+        @keyframes pop {
+            0%   { transform: scale(0.5); opacity: 0; }
+            80%  { transform: scale(1.1); }
+            100% { transform: scale(1);   opacity: 1; }
+        }
+
+        h1 {
+            color: #c2185b;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .message {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .wait-note {
+            color: #bbb;
+            font-size: 14px;
+            margin-bottom: 36px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-family: 'Nunito', Arial, sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            box-shadow: 0 6px 20px rgba(233, 30, 140, 0.35);
+            text-decoration: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(233, 30, 140, 0.45);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="YoBo Logo">
+        </div>
+        <div class="success-icon">✅</div>
+        <h1>{{ t.best_heading }}</h1>
+        <p class="message">
+            {% if produkt == "binde" %}
+                {{ t.best_msg_binde | safe }}
+            {% elif produkt == "desinfektion" %}
+                {{ t.best_msg_desinfektion | safe }}
+            {% endif %}
+        </p>
+        <p class="wait-note">{{ t.best_warte }}</p>
+        <a class="btn" href="/produkte">{{ t.best_btn }}</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <title>{{ t.index_titel }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%);
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(233, 30, 140, 0.15);
+            text-align: center;
+        }
+
+        .logo {
+            overflow: hidden;
+            height: 185px;
+            margin-bottom: 0px;
+        }
+
+        .logo img {
+            width: 320px;
+            max-width: 100%;
+            display: block;
+            margin: -25px auto 0;
+        }
+
+        h1 {
+            color: #c2185b;
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 14px 18px;
+            font-family: 'Nunito', Arial, sans-serif;
+            font-size: 15px;
+            border: 2px solid #f0c0d8;
+            border-radius: 12px;
+            outline: none;
+            color: #444;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fff9fb;
+        }
+
+        input[type="email"]:focus {
+            border-color: #e91e8c;
+            box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.1);
+        }
+
+        input[type="email"]::placeholder {
+            color: #ccc;
+        }
+
+        button[type="submit"] {
+            padding: 14px;
+            font-family: 'Nunito', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, #e91e8c, #c2185b);
+            box-shadow: 0 6px 20px rgba(233, 30, 140, 0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(233, 30, 140, 0.45);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .lang-switch {
+            text-align: right;
+            margin-bottom: 8px;
+        }
+        .lang-switch a {
+            font-size: 13px;
+            color: #e91e8c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .lang-switch a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="lang-switch">
+            <a href="/sprache/{{ t.lang_ziel }}">{{ t.lang_btn }}</a>
+        </div>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="YoBo Logo">
+        </div>
+        <p class="subtitle">{{ t.index_subtitle | safe }}</p>
+
+        <form action="/check_mail" method="POST">
+            <input type="email" name="user_email" placeholder="{{ t.index_placeholder }}" required>
+            <button type="submit">{{ t.index_btn }}</button>
+        </form>
+
+        <p class="footer-note">{{ t.index_footer }}</p>
+    </div>
+</body>
+</html>
